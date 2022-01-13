@@ -4,6 +4,7 @@
 
 <script>
 import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 export default {
     data() {
@@ -11,6 +12,7 @@ export default {
             scene: null, // 场景
             camera: null, // 摄像机
             renderer: null, // 渲染
+            controls: null, // 控制器
         }
     },
     mounted() {
@@ -26,9 +28,9 @@ export default {
             this.renderer.setSize(window.innerWidth, window.innerHeight);
             el.appendChild(this.renderer.domElement);
             // 立方体
-            const geometry = new THREE.BoxGeometry();
+            const boxGeometry = new THREE.BoxGeometry();
             const meshMaterial = new THREE.MeshBasicMaterial({color: 0x409EFF});
-            const cube = new THREE.Mesh( geometry, meshMaterial );
+            const cube = new THREE.Mesh(boxGeometry, meshMaterial);
             this.scene.add(cube);
             this.camera.position.set(0, 0, 4);
             this.camera.lookAt(0, 0, 0);
@@ -39,6 +41,8 @@ export default {
                 this.renderer.render(this.scene, this.camera);
             };
             animate();
+            // 控制器
+            this.controls = new OrbitControls(this.camera, this.renderer.domElement);
         },
         // 响应窗口大小
         handleResize() {
