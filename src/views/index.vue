@@ -28,9 +28,9 @@ export default {
             this.renderer.setSize(window.innerWidth, window.innerHeight);
             el.appendChild(this.renderer.domElement);
             // 立方体
-            const boxGeometry = new THREE.BoxGeometry();
-            const meshMaterial = new THREE.MeshBasicMaterial({color: 0x409EFF});
-            const cube = new THREE.Mesh(boxGeometry, meshMaterial);
+            const geometry = new THREE.BoxGeometry();
+            const material = new THREE.MeshBasicMaterial({color: 0x409EFF});
+            const cube = new THREE.Mesh(geometry, material);
             this.scene.add(cube);
             this.camera.position.set(0, 0, 4);
             this.camera.lookAt(0, 0, 0);
