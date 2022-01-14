@@ -25,7 +25,7 @@ export default {
             this.scene = new THREE.Scene();
             // 相机
             this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 2000);
-            this.camera.position.set(0, 0, 250);
+            this.camera.position.set(0, 0, 25);
             // 渲染器
             this.renderer = new THREE.WebGLRenderer();
             this.renderer.setSize(window.innerWidth, window.innerHeight);
@@ -36,9 +36,10 @@ export default {
 			controls.enableDamping = true; // 是否惯性滑动
             controls.rotateSpeed = 0.25;
             controls.zoomSpeed = 3;
-            controls.maxDistance = 500;
+            controls.minDistance = 12.5;
+            controls.maxDistance = 50;
             // 立方体
-            const geometry = new THREE.BoxGeometry(1000, 1000, 1000);
+            const geometry = new THREE.BoxGeometry(100, 100, 100);
             // 材质
             const material = new THREE.MeshNormalMaterial({
                 color: 0xffffff,
