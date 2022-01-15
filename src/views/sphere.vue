@@ -37,25 +37,18 @@ export default {
 			controls.enableDamping = true; // 是否惯性滑动
             controls.dampingFactor = 0.2;
             controls.rotateSpeed = 0.2;
-            // 立方体
-            const geometry = new THREE.BoxGeometry(50, 50, 50);
+            // 球体
+            const geometry = new THREE.SphereGeometry(50, 50, 50);
             geometry.scale(1, 1, -1); // 里外面反转
             // 加载贴图
-            const texture = new THREE.CubeTextureLoader().setPath('/img/').load([
-                'pano_l.jpg',
-                'pano_r.jpg',
-                'pano_d.jpg',
-                'pano_u.jpg',
-                'pano_f.jpg',
-                'pano_b.jpg',
-            ]);
+            const texture = new THREE.TextureLoader().load('/img/pano.jpg');
             // 材质
-            const material = new THREE.MeshPhongMaterial({
-                envMap: texture, // 贴图
+            const material = new THREE.MeshBasicMaterial({
+                map: texture, // 贴图
             });
-            // 立方体网格
-            const cube = new THREE.Mesh(geometry, material);
-            this.scene.add(cube);
+            // 球体网格
+            const sphere = new THREE.Mesh(geometry, material);
+            this.scene.add(sphere);
             // 环境光
             let ambient = new THREE.AmbientLight(0xffffff);
             this.scene.add(ambient);
