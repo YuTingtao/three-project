@@ -25,39 +25,47 @@ export default {
             this.scene = new THREE.Scene();
             // 相机
             this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 2000);
-            this.camera.position.set(0, 0, 25);
+            this.camera.position.set(0, 0, 0.01);
             // 渲染器
             this.renderer = new THREE.WebGLRenderer();
             this.renderer.setSize(window.innerWidth, window.innerHeight);
             el.appendChild(this.renderer.domElement);
             // 控制器
             const controls = new OrbitControls(this.camera, this.renderer.domElement);
-			controls.enablePan = false; // 是否可平移
+            // controls.autoRotate = true; // 是否自动转动
+            controls.autoRotateSpeed = 1.0;
 			controls.enableDamping = true; // 是否惯性滑动
-            controls.rotateSpeed = 0.25;
-            controls.zoomSpeed = 3;
-            controls.minDistance = 12.5;
-            controls.maxDistance = 50;
+            controls.dampingFactor = 0.2;
+            controls.rotateSpeed = 0.2;
             // 立方体
             const geometry = new THREE.BoxGeometry(100, 100, 100);
+            geometry.scale(-1, -1, -1); // 里外面反转
+            // 加载贴图
+            const texture = new THREE.CubeTextureLoader().setPath('/img/').load([
+                'pano_l.jpg',
+                'pano_r.jpg',
+                'pano_d.jpg',
+                'pano_u.jpg',
+                'pano_f.jpg',
+                'pano_b.jpg',
+            ]);
             // 材质
-            const material = new THREE.MeshNormalMaterial({
-                color: 0xffffff,
-                side: THREE.DoubleSide
+            const material = new THREE.MeshPhongMaterial({
+                envMap: texture, // 贴图
             });
-            // 网格
-            const mesh = new THREE.Mesh(geometry, material);
-            this.scene.add(mesh);
+            // 立方体
+            const cube = new THREE.Mesh(geometry, material);
+            this.scene.add(cube);
             // 环境光
             let ambient = new THREE.AmbientLight(0xffffff);
             this.scene.add(ambient);
             // 渲染
-            const render = () => {
-                requestAnimationFrame(render);
-                // mesh.rotation.y += 0.005;
+            const animate = () => {
+                requestAnimationFrame(animate);
+                controls.update();
                 this.renderer.render(this.scene, this.camera);
 			}
-            render();
+            animate();
         },
         // 响应窗口大小
         handleResize() {
@@ -71,3 +79,9 @@ export default {
     }
 };
 </script>
+
+<style lang="scss">
+.three-container{
+    cursor: grab;
+}
+</style>
