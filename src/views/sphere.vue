@@ -41,7 +41,7 @@ export default {
             const geometry = new THREE.SphereGeometry(50, 50, 50);
             geometry.scale(1, 1, -1); // 里外面反转
             // 加载贴图
-            const texture = new THREE.TextureLoader().load('/img/pano.jpg');
+            const texture = new THREE.TextureLoader().load(this.getPath() + '/img/pano.jpg');
             // 材质
             const material = new THREE.MeshBasicMaterial({
                 map: texture, // 贴图
@@ -65,6 +65,9 @@ export default {
             this.camera.aspect = window.innerWidth / window.innerHeight;
             this.camera.updateProjectionMatrix();
             this.renderer.setSize(window.innerWidth, window.innerHeight);
+        },
+        getPath() {
+            return /github/gi.test(location.hostname)? '/three-project/dist' : '';
         }
     },
     beforeDestroy() {
