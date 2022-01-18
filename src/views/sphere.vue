@@ -27,16 +27,34 @@ export default {
             this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 2000);
             this.camera.position.set(0, 0, 0.01);
             // 渲染器
-            this.renderer = new THREE.WebGLRenderer();
+            this.renderer = new THREE.WebGLRenderer({
+                antialias: true,
+            });
             this.renderer.setSize(window.innerWidth, window.innerHeight);
+            let pixelRatio = window.devicePixelRatio < 1.5 ? 1.5 : window.devicePixelRatio;
+            this.renderer.setPixelRatio(pixelRatio);
             el.appendChild(this.renderer.domElement);
             // 控制器
             const controls = new OrbitControls(this.camera, this.renderer.domElement);
-            // controls.autoRotate = true; // 是否自动转动
+            controls.autoRotate = true; // 是否自动转动
             controls.autoRotateSpeed = 1.0;
 			controls.enableDamping = true; // 是否惯性滑动
             controls.dampingFactor = 0.2;
             controls.rotateSpeed = 0.2;
+            // 停止操作2s后继续自动转动
+            let timer = null;
+            controls.addEventListener('start', () => {
+                if (timer) {
+                    clearTimeout(timer);
+                }
+                controls.autoRotate = false;
+            })
+            controls.addEventListener('end', () => {
+                timer = setTimeout(() => {
+                    controls.autoRotate = true;
+                }, 2000);
+            })
+            controls.update();
             // 球体
             const geometry = new THREE.SphereGeometry(50, 50, 50);
             geometry.scale(1, 1, -1); // 里外面反转
