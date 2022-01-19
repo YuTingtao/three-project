@@ -70,7 +70,6 @@ export default {
             ]);
             // 材质
             const material = new THREE.MeshPhongMaterial({
-                color: 0xffffff,
                 envMap: texture, // 贴图
             });
             // 立方体网格
