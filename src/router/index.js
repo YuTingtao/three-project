@@ -11,10 +11,15 @@ const routes = [
         component: index,
     },
     {
+        path: '/cube',
+        name: 'cube',
+        component: () => import(/* webpackChunkName: "cube" */ '@/views/cube.vue'),
+    },
+    {
         path: '/sphere',
         name: 'sphere',
         component: () => import(/* webpackChunkName: "sphere" */ '@/views/sphere.vue'),
-    },
+    }
 ];
 
 const router = new VueRouter({

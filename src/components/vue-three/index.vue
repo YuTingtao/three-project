@@ -7,6 +7,12 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 export default {
+    props: {
+        textureUrl: {
+            type: String,
+            required: true
+        }
+    },
     data() {
         return {
             scene: null, // 场景
@@ -24,7 +30,7 @@ export default {
             // 场景
             this.scene = new THREE.Scene();
             // 加载贴图
-            let texture = new THREE.TextureLoader().load(this.getPath() + '/img/pano.jpg');
+            let texture = new THREE.TextureLoader().load(this.textureUrl);
             texture.mapping = THREE.EquirectangularReflectionMapping;
             texture.wrapS = THREE.RepeatWrapping;
             texture.wrapT = THREE.RepeatWrapping;

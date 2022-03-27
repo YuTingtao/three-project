@@ -24,8 +24,14 @@ export default {
             // 场景
             this.scene = new THREE.Scene();
             // 加载贴图
-            let texture = new THREE.TextureLoader().load(this.getPath() + '/img/pano.jpg');
-            texture.mapping = THREE.EquirectangularReflectionMapping;
+            let texture = new THREE.CubeTextureLoader().setPath(this.getPath() + '/img/').load([
+                'pano_r.jpg',
+                'pano_l.jpg',
+                'pano_u.jpg',
+                'pano_d.jpg',
+                'pano_f.jpg',
+                'pano_b.jpg',
+            ]);
             texture.wrapS = THREE.RepeatWrapping;
             texture.wrapT = THREE.RepeatWrapping;
             this.scene.background = texture;
