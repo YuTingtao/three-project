@@ -67,7 +67,7 @@ export default {
                 70, // 摄像机视锥体垂直视野角度
                 window.innerWidth / window.innerHeight, // 摄像机视锥体长宽比
                 1, // 摄像机视锥体近端面
-                1000, // 摄像机视锥体远端面
+                2000, // 摄像机视锥体远端面
             );
             this.camera.position.set(0, 0.1, 1.7);
             // 渲染器
@@ -84,13 +84,6 @@ export default {
 			controls.enableDamping = true; // 是否惯性滑动
             controls.dampingFactor = 0.2;
             controls.rotateSpeed = 0.25; // 手动旋转速度
-            controls.enableKeys = true; // 是否启用键盘控制
-            controls.keys = {
-                LEFT: 37, //left arrow
-                UP: 38, // up arrow
-                RIGHT: 39, // right arrow
-                BOTTOM: 40 // down arrow
-            };
             // 停止操作2s后继续自动转动
             if (this.autoRotate) {
                 let timer = null;
@@ -136,10 +129,11 @@ export default {
                     if (this.model) {
                         this.scene.remove(this.model);
                     }
+                    console.log(gltf);
                     this.model = gltf.scene;
                     this.scene.add(this.model);
                 }, undefined, (error) => {
-                    console.error('gltf模型加载失败：', error);
+                    console.error('加载失败:', error);
                 });
             }
         },

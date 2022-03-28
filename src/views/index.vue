@@ -1,16 +1,16 @@
 <template>
-    <VueThree :sceneUrl="getPath() + sceneUrl" :modelUrl="getPath() + modelUrl"></VueThree>
+    <ThreeModel :sceneUrl="getPath() + sceneUrl" :modelUrl="getPath() + modelUrl"></ThreeModel>
 </template>
 
 <script>
-import VueThree from '../components/vue-three/index.vue'
+import ThreeModel from '../components/three/three-model.vue'
 
 export default {
-    components: { VueThree },
+    components: { ThreeModel },
     data() {
         return {
             sceneUrl: '/img/pano.jpg',
-            modelUrl: '/img/helicopter.gltf',
+            modelUrl: '/file/helicopter.gltf',
         }
     },
     methods: {

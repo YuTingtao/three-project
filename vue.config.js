@@ -8,6 +8,11 @@ module.exports = {
     productionSourceMap: false,
     chainWebpack(config) {
         config.resolve.alias.set('@', resolve('src'))
+        // 打包分析
+        if (process.env.NODE_ENV === 'production') {
+            config.plugin('webpack-bundle-analyzer')
+                .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
+        }
     },
     css: {
         loaderOptions: {
