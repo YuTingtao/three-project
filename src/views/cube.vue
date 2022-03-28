@@ -36,8 +36,8 @@ export default {
             texture.wrapT = THREE.RepeatWrapping;
             this.scene.background = texture;
             // 环境光
-            // let ambient = new THREE.AmbientLight(0xffffff);
-            // this.scene.add(ambient);
+            let ambient = new THREE.AmbientLight(0xffffff);
+            this.scene.add(ambient);
             // 相机
             this.camera = new THREE.PerspectiveCamera(
                 60, // 摄像机视锥体垂直视野角度
@@ -45,7 +45,7 @@ export default {
                 1, // 摄像机视锥体近端面
                 1000, // 摄像机视锥体远端面
             );
-            this.camera.position.set(-1.8, 0.6, 2.7);
+            this.camera.position.set(0, 0, 1.7);
             // 渲染器
             this.renderer = new THREE.WebGLRenderer({
                 antialias: true, // 抗锯齿
@@ -99,7 +99,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style>
 .three-container{
     cursor: grab;
 }

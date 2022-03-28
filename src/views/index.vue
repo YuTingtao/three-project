@@ -1,5 +1,5 @@
 <template>
-    <VueThree :textureUrl="getPath() + '/img/pano.jpg'"></VueThree>
+    <VueThree :sceneUrl="getPath() + sceneUrl" :modelUrl="getPath() + modelUrl"></VueThree>
 </template>
 
 <script>
@@ -9,7 +9,8 @@ export default {
     components: { VueThree },
     data() {
         return {
-            
+            sceneUrl: '/img/pano.jpg',
+            modelUrl: '/img/helicopter.gltf',
         }
     },
     methods: {
