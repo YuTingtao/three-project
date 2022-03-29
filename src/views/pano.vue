@@ -1,16 +1,15 @@
 <template>
-    <ThreeModel :sceneUrl="getPath() + sceneUrl" :modelUrl="getPath() + modelUrl"></ThreeModel>
+    <ThreePano :sceneUrl="getPath() + sceneUrl" :autoRotate="true"></ThreePano>
 </template>
 
 <script>
-import ThreeModel from '../components/three/three-model.vue'
+import ThreePano from '../components/three/three-pano.vue'
 
 export default {
-    components: { ThreeModel },
+    components: { ThreePano },
     data() {
         return {
             sceneUrl: '/file/pano/pano.jpg',
-            modelUrl: '/file/helicopter.gltf'
         }
     },
     methods: {

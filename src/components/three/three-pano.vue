@@ -12,10 +12,6 @@ export default {
             type: String,
             required: true
         },
-        // 模型url
-        modelUrl: {
-            type: String
-        },
         // 是否自动旋转
         autoRotate: {
             type: Boolean,
@@ -24,26 +20,22 @@ export default {
     },
     data() {
         return {
-            threeView: null
+            threePano: null
         }
     },
     watch: {
         sceneUrl(val) {
-            this.threeView.loadScene(val);
-        },
-        modelUrl(val) {
-            this.threeView.loadModel(val);
+            this.threePano.loadScene(val);
         }
     },
     mounted() {
-        this.threeView = new ThreeBase(this.$el, {
+        this.threePano = new ThreeBase(this.$el, {
             sceneUrl: this.sceneUrl,
-            modelUrl: this.modelUrl,
             autoRotate: this.autoRotate
         });
     },
     beforeDestroy() {
-        this.threeView.removeWindowResize();
+        this.threePano.removeWindowResize();
     }
 };
 </script>
