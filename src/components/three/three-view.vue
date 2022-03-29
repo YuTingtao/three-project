@@ -1,5 +1,5 @@
 <template>
-    <div class="three-container"></div>
+    <div class="threejs-container"></div>
 </template>
 
 <script>
@@ -21,6 +21,11 @@ export default {
             type: Boolean,
             default: false
         },
+        // 生成的canvas是否铺满浏览器
+        isFullBrowser: {
+            type: Boolean,
+            default: true
+        },
     },
     data() {
         return {
@@ -39,17 +44,15 @@ export default {
         this.threeView = new ThreeBase(this.$el, {
             sceneUrl: this.sceneUrl,
             modelUrl: this.modelUrl,
-            autoRotate: this.autoRotate
+            autoRotate: this.autoRotate,
+            isFullBrowser: this.isFullBrowser
         });
-    },
-    beforeDestroy() {
-        this.threeView.removeWindowResize();
     }
 };
 </script>
 
-<style>
-.three-container{
+<style lang="scss">
+.threejs-container{
     width: 100%;
     height: 100%;
     cursor: grab;

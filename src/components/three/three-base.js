@@ -11,6 +11,7 @@ export default class ThreeBase {
             sceneUrl: '', // 场景url
             modelUrl: '', // 模型url
             autoRotate: false, // 是否自动旋转
+            isFullBrowser: true, // 生成的canvas是否铺满浏览器
             ...options
         };
         this.scene = null; // 场景
@@ -27,7 +28,9 @@ export default class ThreeBase {
         this.renderInit();
         this.controlsInit();
         this.animate();
-        window.addEventListener('resize', this.onWindowResize.bind(this));
+        if (this.opt.isFullBrowser) {
+            window.addEventListener('resize', this.onWindowResize.bind(this));
+        }
     }
     // 场景初始化
     sceneInit() {
@@ -84,7 +87,7 @@ export default class ThreeBase {
     cameraInit() {
         this.camera = new THREE.PerspectiveCamera(
             70, // 摄像机视锥体垂直视野角度
-            window.innerWidth / window.innerHeight, // 摄像机视锥体长宽比
+            this.getWidth() / this.getHeight(), // 摄像机视锥体长宽比
             0.01, // 摄像机视锥体近端面
             2000, // 摄像机视锥体远端面
         );
@@ -95,7 +98,7 @@ export default class ThreeBase {
         this.renderer = new THREE.WebGLRenderer({
             antialias: true, // 抗锯齿
         });
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.renderer.setSize(this.getWidth(), this.getHeight());
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.dom.appendChild(this.renderer.domElement);
     }
@@ -141,12 +144,16 @@ export default class ThreeBase {
     }
     // 响应窗口大小
     onWindowResize() {
-        this.camera.aspect = window.innerWidth / window.innerHeight;
+        this.camera.aspect = this.getWidth() / this.getHeight();
         this.camera.updateProjectionMatrix();
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.renderer.setSize(this.getWidth(), this.getHeight());
     }
-    // 移除windowResize事件监听
-    removeWindowResize() {
-        window.removeEventListener('resize', this.onWindowResize);
+    // 获取宽度
+    getWidth() {
+        return this.opt.isFullBrowser? window.innerWidth : this.dom.offsetWidth;
+    }
+    // 获取高度
+    getHeight() {
+        return this.opt.isFullBrowser? window.innerHeight : this.dom.offsetHeight;
     }
 }

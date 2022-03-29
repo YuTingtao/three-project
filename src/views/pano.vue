@@ -1,15 +1,15 @@
 <template>
-    <ThreePano :sceneUrl="getPath() + sceneUrl" :autoRotate="true"></ThreePano>
+    <ThreeView :sceneUrl="getPath() + sceneUrl" :autoRotate="true"></ThreeView>
 </template>
 
 <script>
-import ThreePano from '../components/three/three-pano.vue'
+import ThreeView from '../components/three/three-view.vue'
 
 export default {
-    components: { ThreePano },
+    components: { ThreeView },
     data() {
         return {
-            sceneUrl: '/file/pano/pano.jpg',
+            sceneUrl: '/file/scene/house.jpg',
         }
     },
     methods: {
@@ -20,8 +20,6 @@ export default {
 };
 </script>
 
-<style lang="scss">
-html, body {
-    height: 100%;
-}
+<style lang="scss" scoped>
+
 </style>

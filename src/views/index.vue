@@ -1,15 +1,15 @@
 <template>
-    <ThreeModel :sceneUrl="getPath() + sceneUrl" :modelUrl="getPath() + modelUrl"></ThreeModel>
+    <ThreeView :sceneUrl="getPath() + sceneUrl" :modelUrl="getPath() + modelUrl"></ThreeView>
 </template>
 
 <script>
-import ThreeModel from '../components/three/three-model.vue'
+import ThreeView from '../components/three/three-view.vue'
 
 export default {
-    components: { ThreeModel },
+    components: { ThreeView },
     data() {
         return {
-            sceneUrl: '/file/pano/pano.jpg',
+            sceneUrl: '/file/scene/house.jpg',
             modelUrl: '/file/helicopter.gltf'
         }
     },
@@ -21,8 +21,6 @@ export default {
 };
 </script>
 
-<style lang="scss">
-html, body {
-    height: 100%;
-}
+<style lang="scss" scoped>
+
 </style>
