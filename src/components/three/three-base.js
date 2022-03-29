@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 
 export default class ThreeBase {
     constructor(el, options) {
@@ -49,11 +50,21 @@ export default class ThreeBase {
     }
     // 加载场景
     loadScene(url) {
-        let texture = new THREE.TextureLoader().load(url);
-        texture.mapping = THREE.EquirectangularReflectionMapping;
-        texture.wrapS = THREE.RepeatWrapping;
-        texture.wrapT = THREE.RepeatWrapping;
-        this.scene.background = texture;
+        if(/\.hdr$/i.test(url)) {
+            new RGBELoader().load(url, (texture) => {
+                texture.mapping = THREE.EquirectangularReflectionMapping;
+                this.scene.background = texture;
+                this.scene.environment = texture;
+            })
+        } else if (/\.(jpg|jpeg|png|gif|bmp)$/i.test(url)) {
+            new THREE.TextureLoader().load(url, (texture) => {
+                texture.mapping = THREE.EquirectangularReflectionMapping;
+                texture.wrapS = THREE.RepeatWrapping;
+                texture.wrapT = THREE.RepeatWrapping;
+                this.scene.background = texture;
+                this.scene.environment = texture;
+            });
+        }
     }
     // 加载模型
     loadModel(url) {

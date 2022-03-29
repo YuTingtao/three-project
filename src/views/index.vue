@@ -9,7 +9,7 @@ export default {
     components: { ThreeView },
     data() {
         return {
-            sceneUrl: '/file/scene/house.jpg',
+            sceneUrl: '/file/scene/mall.hdr',
             modelUrl: '/file/helicopter.gltf'
         }
     },
