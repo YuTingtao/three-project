@@ -1,24 +1,53 @@
 # three-project
 
-## Project setup
+## 介绍
+Vue.js + three.js实现的3D场景、3D模型web端展示，支持场景、模型切换、是否自动旋转、展示区域是否铺满浏览器
+
+## 使用案例
 ```
-npm install
+<template>
+    <ThreeView class="three-box" :sceneUrl="getPath() + sceneUrl" :modelUrl="getPath() + modelUrl"></ThreeView>
+</template>
+
+<script>
+import ThreeView from '../components/three/three-view.vue'
+
+export default {
+    components: { ThreeView },
+    data() {
+        return {
+            sceneUrl: '/file/scene/mall.hdr',
+            modelUrl: '/file/helicopter.gltf',
+        }
+    },
+    methods: {
+        getPath() {
+            return /github/gi.test(location.hostname)? '/three-project/dist' : '';
+        }
+    }
+};
+</script>
 ```
 
-### Compiles and hot-reloads for development
+## 配置参数
 ```
-npm run serve
+// 场景纹理url
+sceneUrl: {
+    type: String,
+    required: true
+},
+// 模型url
+modelUrl: {
+    type: String
+},
+// 是否自动旋转
+autoRotate: {
+    type: Boolean,
+    default: false
+},
+// 生成的canvas是否铺满浏览器
+isFullBrowser: {
+    type: Boolean,
+    default: true
+}
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
