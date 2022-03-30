@@ -1,5 +1,5 @@
 <template>
-    <ThreeView :sceneUrl="getPath() + sceneUrl" :modelUrl="getPath() + modelUrl"></ThreeView>
+    <ThreeView class="three-box" :sceneUrl="getPath() + sceneUrl" :modelUrl="getPath() + modelUrl"></ThreeView>
 </template>
 
 <script>
@@ -10,7 +10,7 @@ export default {
     data() {
         return {
             sceneUrl: '/file/scene/mall.hdr',
-            modelUrl: '/file/helicopter.gltf'
+            modelUrl: '/file/helicopter.gltf',
         }
     },
     methods: {

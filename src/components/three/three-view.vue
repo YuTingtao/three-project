@@ -38,6 +38,9 @@ export default {
         },
         modelUrl(val) {
             this.threeView.loadModel(val);
+        },
+        autoRotate(val) {
+            this.threeView.controlsRotate(val);
         }
     },
     mounted() {
