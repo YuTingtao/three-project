@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 
 export default class ThreeBase {
@@ -57,12 +58,13 @@ export default class ThreeBase {
             0.01, // 摄像机视锥体近端面
             2000, // 摄像机视锥体远端面
         );
-        this.camera.position.set(1.2, 0.5, 1.8);
+        this.camera.position.set(0, 0, 1.8);
     }
     // 渲染器初始化
     renderInit() {
         this.renderer = new THREE.WebGLRenderer({
             antialias: true, // 抗锯齿
+            alpha: true, // canvas是否包含alpha
         });
         this.renderer.setSize(this.getWidth(), this.getHeight());
         this.renderer.setPixelRatio(window.devicePixelRatio);
@@ -133,7 +135,7 @@ export default class ThreeBase {
                     this.scene.remove(this.model);
                 }
                 let model = gltf.scene;
-                this.adjustCameraPos(model);
+                this.adjustModel(model);
                 this.model = model;
                 this.scene.add(this.model);
             }, (xhr) => {
@@ -146,7 +148,21 @@ export default class ThreeBase {
                 if (this.model) {
                     this.scene.remove(this.model);
                 }
-                this.adjustCameraPos(obj);
+                this.adjustModel(obj);
+                this.model = obj;
+                this.scene.add(this.model);
+            }, (xhr) => {
+                // console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+            }, (error) => {
+                console.error('模型加载失败:', error);
+            });
+        }
+        else if (/\.fbx$/i.test(url)) { // FBX模型加载
+            new FBXLoader().load(url, (obj) => {
+                if (this.model) {
+                    this.scene.remove(this.model);
+                }
+                this.adjustModel(obj);
                 this.model = obj;
                 this.scene.add(this.model);
             }, (xhr) => {
@@ -157,14 +173,15 @@ export default class ThreeBase {
         }
     }
     // 根据模型调整相机position
-    adjustCameraPos(model) {
+    adjustModel(model) {
         // model.updateMatrixWorld();
         let box3 = new THREE.Box3().setFromObject(model);
         let vector3 = new THREE.Vector3();
         box3.getSize(vector3);
         // console.log(vector3);
+        model.position.y =  -(vector3.y / 4);
         let distance = (vector3.x + vector3.y + vector3.z) / 3;
-        this.camera.position.set(1.2 * distance / 1.8, 0.5 * distance / 1.8, distance);
+        this.camera.position.set(0, 0, distance);
         this.camera.updateProjectionMatrix();
     }
     // 响应窗口大小
