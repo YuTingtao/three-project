@@ -26,5 +26,6 @@ module.exports = {
         disableHostCheck: true,
         port: 8080,
         open: true
-    }
+    },
+    outputDir: 'docs'
 }

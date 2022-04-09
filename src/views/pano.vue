@@ -1,5 +1,5 @@
 <template>
-    <ThreeView :sceneUrl="getPath() + sceneUrl" :autoRotate="true"></ThreeView>
+    <ThreeView :sceneUrl="sceneUrl" :autoRotate="true"></ThreeView>
 </template>
 
 <script>
@@ -10,11 +10,6 @@ export default {
     data() {
         return {
             sceneUrl: '/file/scene/house.jpg',
-        }
-    },
-    methods: {
-        getPath() {
-            return /github/gi.test(location.hostname)? '/three-project/dist' : '';
         }
     }
 };

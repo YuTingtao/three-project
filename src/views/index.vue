@@ -1,5 +1,5 @@
 <template>
-    <ThreeView class="three-box" :sceneUrl="getPath() + sceneUrl" :modelUrl="getPath() + modelUrl"></ThreeView>
+    <ThreeView class="three-box" :sceneUrl="sceneUrl" :modelUrl="modelUrl"></ThreeView>
 </template>
 
 <script>
@@ -11,11 +11,6 @@ export default {
         return {
             sceneUrl: '/file/scene/mall.hdr',
             modelUrl: '/file/helicopter.gltf',
-        }
-    },
-    methods: {
-        getPath() {
-            return /github/gi.test(location.hostname)? '/three-project/dist' : '';
         }
     }
 };
