@@ -16,8 +16,8 @@ export default {
     components: { ThreeView },
     data() {
         return {
-            sceneUrl: '/file/scene/mall.hdr',
-            modelUrl: '/file/helicopter.gltf',
+            sceneUrl: 'file/scene/mall.hdr',
+            modelUrl: 'file/helicopter.gltf',
         }
     }
 };
