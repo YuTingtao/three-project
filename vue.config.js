@@ -4,7 +4,7 @@ function resolve(dir) {
 }
 
 module.exports = {
-    publicPath: './',
+    publicPath: '/three-project',
     productionSourceMap: false,
     chainWebpack(config) {
         config.resolve.alias.set('@', resolve('src'))
