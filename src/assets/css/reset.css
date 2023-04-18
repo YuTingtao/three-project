@@ -11,100 +11,100 @@ table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section, summary,
 time, mark, audio, video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    outline: 0;
-    vertical-align: baseline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  vertical-align: baseline;
 }
 
 ul, ol, li {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 i, em {
-    font-style: normal;
+  font-style: normal;
 }
 
 img {
-    border: none;
-    vertical-align: top;
+  border: none;
+  vertical-align: top;
 }
 
 img[src=""], img:not([src]) {
-    opacity: 0;
+  opacity: 0;
 }
 
 a {
-    text-decoration: none;
-    outline: 0;
-    color: inherit;
+  text-decoration: none;
+  outline: 0;
+  color: inherit;
 }
 
 table {
-    border-collapse: collapse;
-    border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 input::-ms-clear, input::-ms-reveal { 
-    display: none;
+  display: none;
 }
 
 input::-ms-clear, input::-ms-reveal {
-    display: none;
+  display: none;
 }
 input::-moz-placeholder, textarea::-moz-placeholder {
-    color: #c0c4cc;
-    opacity: 1;
+  color: #c0c4cc;
+  opacity: 1;
 }
 input:-ms-input-placeholder, textarea:-ms-input-placeholder {
-    color: #c0c4cc;
+  color: #c0c4cc;
 }
 input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
-    color: #c0c4cc;
+  color: #c0c4cc;
 }
 
 html, body {
-   height: 100%;
+  height: 100%;
 }
 
 body {
-    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
-    font-size: 14px;
-    color: #333;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
 }
 
 input, textarea, button, select {
-    outline: none;
-    font-family: inherit;
-    font-size: 14px;
-    color: inherit;
+  outline: none;
+  font-family: inherit;
+  font-size: 14px;
+  color: inherit;
 }
 
 textarea {
-    resize: vertical;
+  resize: vertical;
 }
 
 button {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .clearfix {
-    *zoom: 1;
+  *zoom: 1;
 }
 
 .clearfix:after {
-    display: block;
-    clear: both;
-    content: '';
-    visibility: hidden;
-    height: 0;
+  display: block;
+  clear: both;
+  content: '';
+  visibility: hidden;
+  height: 0;
 }
 
 .fl {
-    float: left;
+  float: left;
 }
 
 .fr {
-    float: right;
+  float: right;
 }

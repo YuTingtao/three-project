@@ -1,13 +1,13 @@
-$primary: #409EFF;
+$primary: #409eff;
 
 @mixin ellipsis($line: 1) {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    @if ($line == 1) {
-        white-space: nowrap;
-    } @else {
-        display: -webkit-box;
-        -webkit-line-clamp: $line;
-        -webkit-box-orient: vertical;
-    }
+  overflow: hidden;
+  text-overflow: ellipsis;
+  @if ($line == 1) {
+    white-space: nowrap;
+  } @else {
+    display: -webkit-box;
+    -webkit-line-clamp: $line;
+    -webkit-box-orient: vertical;
+  }
 }

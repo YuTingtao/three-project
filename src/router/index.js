@@ -1,23 +1,23 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
 const routes = [
-    {
-        path: '/',
-        name: 'index',
-        component: () => import(/* webpackChunkName: "index" */ '@/views/index.vue'),
-    },
-    {
-        path: '/pano',
-        name: 'pano',
-        component: () => import(/* webpackChunkName: "cube" */ '@/views/pano.vue'),
-    }
-];
+  {
+    path: '/',
+    name: 'index',
+    component: () => import(/* webpackChunkName: "index" */ '@/views/index.vue'),
+  },
+  {
+    path: '/pano',
+    name: 'pano',
+    component: () => import(/* webpackChunkName: "pano" */ '@/views/pano.vue'),
+  },
+]
 
 const router = new VueRouter({
-    routes,
-});
+  routes,
+})
 
-export default router;
+export default router
