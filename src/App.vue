@@ -3,10 +3,10 @@
 </template>
 
 <script>
-  export default {
-    data() {
-      return {}
-    },
-    created() {},
-  }
+export default {
+  data() {
+    return {}
+  },
+  created() {}
+}
 </script>

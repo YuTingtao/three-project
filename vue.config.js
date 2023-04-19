@@ -18,13 +18,12 @@ module.exports = {
   css: {
     loaderOptions: {
       scss: {
-        additionalData: `@import "~@/assets/scss/base/variable.scss";`,
-      },
-    },
+        additionalData: `@import "~@/assets/scss/base/variable.scss";`
+      }
+    }
   },
   devServer: {
-    disableHostCheck: true,
     port: 8080,
-    open: true,
-  },
+    open: true
+  }
 }

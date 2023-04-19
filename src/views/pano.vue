@@ -9,9 +9,9 @@ export default {
   components: { ThreeView },
   data() {
     return {
-      sceneUrl: 'file/scene/house.jpg',
+      sceneUrl: 'file/scene/house.jpg'
     }
-  },
+  }
 }
 </script>
 

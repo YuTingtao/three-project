@@ -14,7 +14,7 @@ export default class ThreeBase {
       modelUrl: '', // 模型url
       autoRotate: false, // 是否自动旋转
       isFullBrowser: true, // 生成的canvas是否铺满浏览器
-      ...options,
+      ...options
     }
     this.scene = null // 场景
     this.camera = null // 摄像机
@@ -58,13 +58,13 @@ export default class ThreeBase {
       0.01, // 摄像机视锥体近端面
       2000 // 摄像机视锥体远端面
     )
-    this.camera.position.set(0, 0, 1.8)
+    this.camera.position.set(0, 0, 1)
   }
   // 渲染器初始化
   renderInit() {
     this.renderer = new THREE.WebGLRenderer({
       antialias: true, // 抗锯齿
-      alpha: true, // canvas是否包含alpha
+      alpha: true // canvas是否包含alpha
     })
     this.renderer.setSize(this.getWidth(), this.getHeight())
     this.renderer.setPixelRatio(window.devicePixelRatio)

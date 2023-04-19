@@ -10,9 +10,9 @@ export default {
   data() {
     return {
       sceneUrl: 'file/scene/mall.hdr',
-      modelUrl: 'file/helicopter.gltf',
+      modelUrl: 'file/helicopter.gltf'
     }
-  },
+  }
 }
 </script>
 

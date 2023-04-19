@@ -7,17 +7,17 @@ const routes = [
   {
     path: '/',
     name: 'index',
-    component: () => import(/* webpackChunkName: "index" */ '@/views/index.vue'),
+    component: () => import(/* webpackChunkName: "index" */ '@/views/index.vue')
   },
   {
     path: '/pano',
     name: 'pano',
-    component: () => import(/* webpackChunkName: "pano" */ '@/views/pano.vue'),
-  },
+    component: () => import(/* webpackChunkName: "pano" */ '@/views/pano.vue')
+  }
 ]
 
 const router = new VueRouter({
-  routes,
+  routes
 })
 
 export default router

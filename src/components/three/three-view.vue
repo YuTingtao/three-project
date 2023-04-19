@@ -10,26 +10,26 @@ export default {
     // 场景纹理url
     sceneUrl: {
       type: String,
-      required: true,
+      required: true
     },
     // 模型url
     modelUrl: {
-      type: String,
+      type: String
     },
     // 是否自动旋转
     autoRotate: {
       type: Boolean,
-      default: false,
+      default: false
     },
     // 生成的canvas是否铺满浏览器
     isFullBrowser: {
       type: Boolean,
-      default: true,
-    },
+      default: true
+    }
   },
   data() {
     return {
-      threeView: null,
+      threeView: null
     }
   },
   watch: {
@@ -41,16 +41,16 @@ export default {
     },
     autoRotate(val) {
       this.threeView.controlsRotate(val)
-    },
+    }
   },
   mounted() {
     this.threeView = new ThreeBase(this.$el, {
       sceneUrl: this.sceneUrl,
       modelUrl: this.modelUrl,
       autoRotate: this.autoRotate,
-      isFullBrowser: this.isFullBrowser,
+      isFullBrowser: this.isFullBrowser
     })
-  },
+  }
 }
 </script>
 
