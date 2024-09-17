@@ -47,7 +47,7 @@ export default class ThreeBase {
   sceneInit() {
     this.scene = new THREE.Scene()
     // 环境光
-    let ambient = new THREE.AmbientLight(0xffffff)
+    let ambient = new THREE.AmbientLight(0xffffff, 1)
     this.scene.add(ambient)
   }
   // 相机初始化
@@ -58,7 +58,7 @@ export default class ThreeBase {
       0.01, // 摄像机视锥体近端面
       2000 // 摄像机视锥体远端面
     )
-    this.camera.position.set(0, 0, 1)
+    this.camera.position.set(0, 0, 1.8)
   }
   // 渲染器初始化
   renderInit() {
@@ -129,7 +129,7 @@ export default class ThreeBase {
   }
   // 加载模型
   loadModel(url) {
-    if (/\.gltf$/i.test(url)) {
+    if (/\.(gltf|glb)$/i.test(url)) {
       // GLTF模型加载
       new GLTFLoader().load(
         url,
@@ -195,8 +195,7 @@ export default class ThreeBase {
     let box3 = new THREE.Box3().setFromObject(model)
     let vector3 = new THREE.Vector3()
     box3.getSize(vector3)
-    // console.log(vector3);
-    model.position.y = -(vector3.y / 4)
+    model.position.y = vector3.y / 12
     let distance = (vector3.x + vector3.y + vector3.z) / 3
     this.camera.position.set(0, 0, distance)
     this.camera.updateProjectionMatrix()
