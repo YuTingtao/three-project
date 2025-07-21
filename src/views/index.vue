@@ -3,16 +3,16 @@
 </template>
 
 <script>
-import ThreeView from '../components/three/three-view.vue'
+import ThreeView from '../components/three/index.vue'
 
 export default {
   components: { ThreeView },
   data() {
     return {
-      sceneUrl: '/file/scene/mall.hdr',
-      modelUrl: '/file/helmet.glb'
-      // sceneUrl: '/file/scene/house.jpg',
-      // modelUrl: '/file/helicopter.gltf'
+      sceneUrl: './file/scene/mall.hdr',
+      modelUrl: './file/helmet.glb'
+      // sceneUrl: './file/scene/house.jpg',
+      // modelUrl: './file/helicopter.gltf'
     }
   }
 }

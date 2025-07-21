@@ -3,13 +3,13 @@
 </template>
 
 <script>
-import ThreeView from '../components/three/three-view.vue'
+import ThreeView from '../components/three/index.vue'
 
 export default {
   components: { ThreeView },
   data() {
     return {
-      sceneUrl: 'file/scene/house.jpg'
+      sceneUrl: './file/scene/house.jpg'
     }
   }
 }

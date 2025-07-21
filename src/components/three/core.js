@@ -5,7 +5,7 @@ import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js'
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
 
-export default class ThreeBase {
+export default class ThreeCore {
   constructor(el, options) {
     this.dom = el // 插入的dom
     // 配置参数

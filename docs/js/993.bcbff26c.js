@@ -1,4 +1,4 @@
-"use strict";(self["webpackChunkthree_project"]=self["webpackChunkthree_project"]||[]).push([[456],{456:function(e,t,n){n.d(t,{Z:function(){return Tm}});var i=function(){var e=this,t=e._self._c;return t("div",{staticClass:"threejs-container"})},r=[];
+"use strict";(self["webpackChunkthree_project"]=self["webpackChunkthree_project"]||[]).push([[993],{993:function(e,t,n){n.d(t,{Z:function(){return Tm}});var i=function(){var e=this,t=e._self._c;return t("div",{staticClass:"threejs-container"})},r=[];
 /**
  * @license
  * Copyright 2010-2023 Three.js Authors

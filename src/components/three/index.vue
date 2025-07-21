@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import ThreeBase from './three-base.js'
+import ThreeCore from './core.js'
 
 export default {
   props: {
@@ -44,7 +44,7 @@ export default {
     }
   },
   mounted() {
-    this.threeView = new ThreeBase(this.$el, {
+    this.threeView = new ThreeCore(this.$el, {
       sceneUrl: this.sceneUrl,
       modelUrl: this.modelUrl,
       autoRotate: this.autoRotate,
@@ -58,6 +58,7 @@ export default {
 .threejs-container {
   width: 100%;
   height: 100%;
+  overflow: hidden;
   cursor: grab;
 }
 </style>
