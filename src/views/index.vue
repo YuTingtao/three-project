@@ -2,20 +2,14 @@
   <ThreeView class="three-box" :sceneUrl="sceneUrl" :modelUrl="modelUrl"></ThreeView>
 </template>
 
-<script>
-import ThreeView from '../components/three/index.vue'
+<script setup>
+import { ref } from 'vue';
+import ThreeView from '../components/three/index.vue';
 
-export default {
-  components: { ThreeView },
-  data() {
-    return {
-      sceneUrl: './file/scene/mall.hdr',
-      modelUrl: './file/helmet.glb'
-      // sceneUrl: './file/scene/house.jpg',
-      // modelUrl: './file/helicopter.gltf'
-    }
-  }
-}
+const sceneUrl = ref('/public/file/scene/mall.hdr');
+const modelUrl = ref('/public/file/helmet.glb');
+// const sceneUrl = ref('/public/file/scene/house.jpg');
+// const modelUrl = ref('/public/file/helicopter.gltf');
 </script>
 
 <style lang="scss" scoped></style>

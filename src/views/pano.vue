@@ -2,17 +2,10 @@
   <ThreeView :sceneUrl="sceneUrl" :autoRotate="true"></ThreeView>
 </template>
 
-<script>
-import ThreeView from '../components/three/index.vue'
+<script setup>
+import ThreeView from '@/components/three/index.vue';
 
-export default {
-  components: { ThreeView },
-  data() {
-    return {
-      sceneUrl: './file/scene/house.jpg'
-    }
-  }
-}
+const sceneUrl = ref('/public/file/scene/house.jpg');
 </script>
 
 <style lang="scss" scoped></style>

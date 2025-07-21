@@ -1,48 +1,9 @@
-# three-project
+# 介绍
 
-## 介绍
-Vue.js + three.js实现的3D场景、3D模型web端展示，支持场景、模型切换、是否自动旋转、展示区域是否铺满浏览器
+vue3 + vite + vue-router + pinia + element-plus 项目模板，支持自定义主题色，菜单按钮权限控制，左侧菜单根据权限数据生成、智能高亮、根据路由自动生成面包屑（支持自定义父级），版本更新提示，svg-icon组件，axios拦截
 
-## 使用案例
-```
-<template>
-    <ThreeView class="three-box" :sceneUrl="sceneUrl" :modelUrl="modelUrl"></ThreeView>
-</template>
+## 包管理工具pnpm
 
-<script>
-import ThreeView from '../components/three/three-view.vue'
-
-export default {
-    components: { ThreeView },
-    data() {
-        return {
-            sceneUrl: 'file/scene/mall.hdr',
-            modelUrl: 'file/helicopter.gltf',
-        }
-    }
-};
-</script>
-```
-
-## 配置参数
-```
-// 场景纹理url
-sceneUrl: {
-    type: String,
-    required: true
-},
-// 模型url
-modelUrl: {
-    type: String
-},
-// 是否自动旋转
-autoRotate: {
-    type: Boolean,
-    default: false
-},
-// 生成的canvas是否铺满浏览器
-isFullBrowser: {
-    type: Boolean,
-    default: true
-}
-```
+pnpm i 
+pnpm run dev 
+pnpm run build 
