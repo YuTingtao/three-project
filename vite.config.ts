@@ -23,7 +23,7 @@ export default defineConfig({
     // 大于50K的文件进行gzip压缩
     compression({ threshold: 1024 * 50 })
     // 打包分析
-    // visualizer({ open: true, filename: 'dist/stats.html' })
+    // visualizer({ open: true, filename: 'docs/stats.html' })
   ],
   resolve: { alias: { '@': resolve(__dirname, 'src') } },
   css: {
