@@ -4,6 +4,10 @@ const allRoutes: Array<RouteRecordRaw> = [
   {
     path: '/',
     component: () => import('@/views/index.vue')
+  },
+  {
+    path: '/pano',
+    component: () => import('@/views/PanoView.vue')
   }
 ];
 const router = createRouter({

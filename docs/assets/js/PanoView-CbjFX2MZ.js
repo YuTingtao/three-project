@@ -1,0 +1,1 @@
+import{_ as o}from"./index-D1alKTDZ.js";import{f as r,c as s,o as t}from"./vendor-a90lYiq8.js";import"./three-SBpxxL0c.js";const u={__name:"PanoView",setup(a){const e=r("./file/scene/house.jpg");return(c,n)=>(t(),s(o,{sceneUrl:e.value,autoRotate:!0},null,8,["sceneUrl"]))}};export{u as default};

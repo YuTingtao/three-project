@@ -68,7 +68,7 @@ export default defineConfig([
       // vue缩进2个空格
       'vue/html-indent': ['error', 2, { alignAttributesVertically: false }],
       // vue组件命名
-      'vue/multi-word-component-names': ['warn', { ignores: ['index'] }],
+      'vue/multi-word-component-names': ['error', { ignores: ['index'] }],
       // vue未使用变量
       'vue/no-unused-vars': ['warn', { ignorePattern: '^_' }]
     }

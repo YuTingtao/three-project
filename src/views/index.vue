@@ -6,10 +6,10 @@
 import { ref } from 'vue';
 import ThreeView from '../components/three/index.vue';
 
-const sceneUrl = ref('/public/file/scene/mall.hdr');
-const modelUrl = ref('/public/file/helmet.glb');
-// const sceneUrl = ref('/public/file/scene/house.jpg');
-// const modelUrl = ref('/public/file/helicopter.gltf');
+const sceneUrl = ref('./file/scene/mall.hdr');
+const modelUrl = ref('./file/helmet.glb');
+// const sceneUrl = ref('./file/scene/house.jpg');
+// const modelUrl = ref('./file/helicopter.gltf');
 </script>
 
 <style lang="scss" scoped></style>

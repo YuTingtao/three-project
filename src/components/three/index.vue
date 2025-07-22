@@ -4,7 +4,7 @@
 
 <script setup>
 import { ref, watch, onMounted } from 'vue';
-import ThreeCore from './core.js';
+import Three from './core.js';
 
 const props = defineProps({
   // 场景纹理url
@@ -33,7 +33,7 @@ const threeCore = ref();
 
 // 初始化ThreeCore
 function initThreeCore() {
-  threeCore.value = new ThreeCore(threeRef.value, {
+  threeCore.value = new Three(threeRef.value, {
     sceneUrl: props.sceneUrl,
     modelUrl: props.modelUrl,
     autoRotate: props.autoRotate,
