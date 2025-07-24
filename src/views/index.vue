@@ -11,4 +11,9 @@ const modelUrl = ref('./file/helmet.glb');
 // const modelUrl = ref('./file/helicopter.gltf');
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.three-box {
+  overflow: hidden;
+  background: #000;
+}
+</style>

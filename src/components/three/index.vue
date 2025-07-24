@@ -2,7 +2,7 @@
   <div ref="threeRef" class="threejs-container"></div>
 </template>
 
-<script setup>
+<script setup name="ThreeView">
 import { ref, watch, onMounted } from 'vue';
 import ThreeCore from './core.js';
 
@@ -21,8 +21,8 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
-  // 生成的canvas是否铺满浏览器
-  isFullBrowser: {
+  // 是否铺满浏览器
+  windowSize: {
     type: Boolean,
     default: true
   }
@@ -37,7 +37,7 @@ function initThreeCore() {
     sceneUrl: props.sceneUrl,
     modelUrl: props.modelUrl,
     autoRotate: props.autoRotate,
-    isFullBrowser: props.isFullBrowser
+    windowSize: props.windowSize
   });
 }
 
@@ -79,7 +79,6 @@ watch(
 .threejs-container {
   width: 100%;
   height: 100%;
-  overflow: hidden;
   cursor: grab;
 }
 </style>

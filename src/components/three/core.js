@@ -48,8 +48,16 @@ export default class ThreeCore {
   sceneInit() {
     this.scene = new THREE.Scene();
     // 环境光
-    let ambient = new THREE.AmbientLight(0xffffff, 1);
-    this.scene.add(ambient);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 5);
+    this.scene.add(ambientLight);
+    // 平行光
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 5);
+    directionalLight.position.set(1, 1, 1).normalize();
+    this.scene.add(directionalLight);
+
+    const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.5);
+    directionalLight2.position.set(-1, -1, -1).normalize();
+    this.scene.add(directionalLight2);
   }
   // 相机初始化
   cameraInit() {
