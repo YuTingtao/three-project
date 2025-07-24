@@ -1,0 +1,1 @@
+import{_ as o}from"./index-RwSH-I9I.js";import{f as e,c as s,o as c}from"./vendor-DYsn_kT4.js";import"./three-DH406mHs.js";const i={__name:"index",setup(a){const l=e("./file/scene/mall.hdr"),r=e("./file/helmet.glb");return(n,t)=>(c(),s(o,{class:"three-box",sceneUrl:l.value,modelUrl:r.value},null,8,["sceneUrl","modelUrl"]))}};export{i as default};

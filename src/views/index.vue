@@ -8,7 +8,6 @@ import ThreeView from '../components/three/index.vue';
 
 const sceneUrl = ref('./file/scene/mall.hdr');
 const modelUrl = ref('./file/helmet.glb');
-// const sceneUrl = ref('./file/scene/house.jpg');
 // const modelUrl = ref('./file/helicopter.gltf');
 </script>
 
