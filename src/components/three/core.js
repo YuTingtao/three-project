@@ -203,18 +203,10 @@ export default class ThreeCore {
   adjustCamera(model) {
     const box = new THREE.Box3().setFromObject(model);
     const boxSize = box.getSize(new THREE.Vector3()).length();
-    const boxCenter = box.getCenter(new THREE.Vector3());
-
     const halfFovY = THREE.MathUtils.degToRad(this.camera.fov * 0.5);
     const distance = (boxSize * 0.6) / Math.tan(halfFovY);
-    // const direction = new THREE.Vector3().subVectors(this.camera.position, boxCenter).normalize();
-
-    // this.camera.position.copy(direction.multiplyScalar(distance).add(boxCenter));
     this.camera.position.set(0, 0, distance);
-    this.camera.near = boxSize / 100;
-    this.camera.far = boxSize * 100;
     this.camera.updateProjectionMatrix();
-    this.camera.lookAt(boxCenter.x, boxCenter.y, boxCenter.z);
   }
   // 更新渲染
   updateRender() {
