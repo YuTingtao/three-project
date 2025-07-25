@@ -204,9 +204,9 @@ export default class ThreeCore {
     const box = new THREE.Box3().setFromObject(model);
     const boxSize = box.getSize(new THREE.Vector3()).length();
     const halfFovY = THREE.MathUtils.degToRad(this.camera.fov * 0.5);
-    const distance = (boxSize * 0.6) / Math.tan(halfFovY);
+    const distance = (boxSize * 0.5) / Math.tan(halfFovY);
     this.camera.position.set(0, 0, distance);
-    this.camera.updateProjectionMatrix();
+    this.camera.updateProjectionMatrix(); // 更新相机投影矩阵
   }
   // 更新渲染
   updateRender() {
