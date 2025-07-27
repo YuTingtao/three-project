@@ -10,6 +10,6 @@ declare module 'vue' {
   export interface GlobalComponents {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    Three: typeof import('./src/components/three/index.vue')['default']
+    Three3dView: typeof import('./src/components/three3dView/index.vue')['default']
   }
 }

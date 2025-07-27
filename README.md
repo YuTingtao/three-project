@@ -14,5 +14,4 @@ pnpm run build
   sceneUrl: '', // 场景url
   modelUrl: '', // 模型url
   autoRotate: false, // 是否自动旋转
-  windowSize: true, // 是否铺满浏览器
 ```

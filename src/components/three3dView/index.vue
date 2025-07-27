@@ -20,11 +20,6 @@ const props = defineProps({
   autoRotate: {
     type: Boolean,
     default: false
-  },
-  // 是否铺满浏览器
-  windowSize: {
-    type: Boolean,
-    default: true
   }
 });
 

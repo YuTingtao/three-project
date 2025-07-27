@@ -14,7 +14,6 @@ export default class ThreeCore {
       sceneUrl: '', // 场景url
       modelUrl: '', // 模型url
       autoRotate: false, // 是否自动旋转
-      windowSize: true, // 是否铺满浏览器
       ...options
     };
     this.scene = null; // 场景
@@ -63,7 +62,7 @@ export default class ThreeCore {
   cameraInit() {
     this.camera = new THREE.PerspectiveCamera(
       70, // 摄像机视锥体垂直视野角度
-      this.getWidth() / this.getHeight(), // 摄像机视锥体长宽比
+      this.dom.offsetWidth / this.dom.offsetHeight, // 摄像机视锥体长宽比
       0.01, // 摄像机视锥体近端面
       2000 // 摄像机视锥体远端面
     );
@@ -75,7 +74,7 @@ export default class ThreeCore {
       antialias: true, // 抗锯齿
       alpha: true // canvas是否包含alpha
     });
-    this.renderer.setSize(this.getWidth(), this.getHeight());
+    this.renderer.setSize(this.dom.offsetWidth, this.dom.offsetHeight);
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.dom.appendChild(this.renderer.domElement);
   }
@@ -210,16 +209,8 @@ export default class ThreeCore {
   }
   // 更新渲染
   updateRender() {
-    this.camera.aspect = this.getWidth() / this.getHeight();
+    this.camera.aspect = this.dom.offsetWidth / this.dom.offsetHeight;
     this.camera.updateProjectionMatrix(); // 更新相机投影矩阵
-    this.renderer.setSize(this.getWidth(), this.getHeight()); // 更新渲染器大小
-  }
-  // 获取宽度
-  getWidth() {
-    return this.opt.windowSize ? window.innerWidth : this.dom.offsetWidth;
-  }
-  // 获取高度
-  getHeight() {
-    return this.opt.windowSize ? window.innerHeight : this.dom.offsetHeight;
+    this.renderer.setSize(this.dom.offsetWidth, this.dom.offsetHeight); // 更新渲染器大小
   }
 }
