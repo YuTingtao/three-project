@@ -5,8 +5,9 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
+import { debounce } from 'lodash-es';
 
-export default class ThreeCore {
+export default class Three3dView {
   constructor(el, options) {
     this.dom = el; // 插入的dom
     // 配置参数
@@ -14,6 +15,7 @@ export default class ThreeCore {
       sceneUrl: '', // 场景url
       modelUrl: '', // 模型url
       autoRotate: false, // 是否自动旋转
+      debounceDelay: 100, // 防抖延迟时间
       ...options
     };
     this.scene = null; // 场景
@@ -25,11 +27,11 @@ export default class ThreeCore {
   }
   // 初始化
   init() {
-    this.sceneInit();
-    this.cameraInit();
-    this.renderInit();
-    this.controlsInit();
-    this.animate();
+    this.initScene();
+    this.initCamera();
+    this.initRender();
+    this.initControls();
+    this.render();
     // 加载场景
     if (this.opt.sceneUrl) {
       this.loadScene(this.opt.sceneUrl);
@@ -38,28 +40,35 @@ export default class ThreeCore {
     if (this.opt.modelUrl) {
       this.loadModel(this.opt.modelUrl);
     }
-    // 响应窗口大小改变
-    if (this.opt.windowSize) {
-      window.addEventListener('resize', this.updateRender.bind(this));
-    }
+    // 监听dom大小变化
+    const observer = new ResizeObserver(
+      debounce(entries => {
+        this.updateRender();
+      }, this.opt.debounceDelay)
+    );
+    observer.observe(this.dom);
   }
+
   // 场景初始化
-  sceneInit() {
+  initScene() {
     this.scene = new THREE.Scene();
     // 环境光
     const ambientLight = new THREE.AmbientLight(0xffffff, 5);
     this.scene.add(ambientLight);
-    // 平行光
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 5);
-    directionalLight.position.set(1, 1, 1).normalize();
-    this.scene.add(directionalLight);
 
-    const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.5);
-    directionalLight2.position.set(-1, -1, -1).normalize();
-    this.scene.add(directionalLight2);
+    // 如果没有场景url，则添加默认的光源
+    if (!this.opt.sceneUrl) {
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 5);
+      directionalLight.position.set(0, 1, 0).normalize();
+      this.scene.add(directionalLight);
+      const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.5);
+      directionalLight2.position.set(0, -1, 0).normalize();
+      this.scene.add(directionalLight2);
+    }
   }
+
   // 相机初始化
-  cameraInit() {
+  initCamera() {
     this.camera = new THREE.PerspectiveCamera(
       70, // 摄像机视锥体垂直视野角度
       this.dom.offsetWidth / this.dom.offsetHeight, // 摄像机视锥体长宽比
@@ -68,21 +77,33 @@ export default class ThreeCore {
     );
     this.camera.position.set(0, 0, 1.5); // 设置相机位置
   }
+
   // 渲染器初始化
-  renderInit() {
+  initRender() {
     this.renderer = new THREE.WebGLRenderer({
       antialias: true, // 抗锯齿
-      alpha: true // canvas是否包含alpha
+      alpha: true, // canvas是否包含alpha
+      logarithmicDepthBuffer: true // 对数深度缓冲
     });
     this.renderer.setSize(this.dom.offsetWidth, this.dom.offsetHeight);
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.dom.appendChild(this.renderer.domElement);
   }
+
+  // 渲染方法
+  render() {
+    requestAnimationFrame(() => {
+      this.render();
+    });
+    this.controls.update();
+    this.renderer.render(this.scene, this.camera);
+  }
+
   // 控制器初始化
-  controlsInit() {
+  initControls() {
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.controls.autoRotateSpeed = 1.0; // 自动旋转速度
-    this.controls.autoRotate = this.autoRotate; // 是否自动转动
+    this.controls.autoRotate = this.opt.autoRotate; // 是否自动转动
     this.controls.enableDamping = true; // 是否惯性滑动
     this.controls.dampingFactor = 0.2; // 阻尼系数
     this.controls.enableZoom = true; // 是否允许缩放
@@ -90,6 +111,7 @@ export default class ThreeCore {
     this.controlsRotate(this.opt.autoRotate);
     this.controls.update();
   }
+
   // 控制器旋转
   controlsRotate(autoRotate) {
     this.controls.autoRotate = autoRotate || false;
@@ -110,18 +132,12 @@ export default class ThreeCore {
       });
     }
   }
-  // 动画渲染
-  animate() {
-    requestAnimationFrame(() => {
-      this.animate();
-    });
-    this.controls.update();
-    this.renderer.render(this.scene, this.camera);
-  }
+
   // 加载场景
   loadScene(url) {
     if (/\.hdr$/i.test(url)) {
       new RGBELoader().load(url, texture => {
+        console.log(texture);
         texture.mapping = THREE.EquirectangularReflectionMapping;
         this.scene.background = texture;
         this.scene.environment = texture;
@@ -136,6 +152,7 @@ export default class ThreeCore {
       });
     }
   }
+
   // 加载模型
   loadModel(url) {
     if (/\.(gltf|glb)$/i.test(url)) {
@@ -146,7 +163,7 @@ export default class ThreeCore {
           if (this.model) {
             this.scene.remove(this.model);
           }
-          let model = gltf.scene;
+          const model = gltf.scene;
           this.adjustCamera(model);
           this.model = model;
           this.scene.add(this.model);
@@ -198,6 +215,7 @@ export default class ThreeCore {
       );
     }
   }
+
   // 根据模型调整相机
   adjustCamera(model) {
     const box = new THREE.Box3().setFromObject(model);
@@ -207,6 +225,7 @@ export default class ThreeCore {
     this.camera.position.set(0, 0, distance);
     this.camera.updateProjectionMatrix(); // 更新相机投影矩阵
   }
+
   // 更新渲染
   updateRender() {
     this.camera.aspect = this.dom.offsetWidth / this.dom.offsetHeight;

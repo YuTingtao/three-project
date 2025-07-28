@@ -14,6 +14,5 @@ const modelUrl = ref('./file/helmet.glb');
 <style lang="scss" scoped>
 .three-box {
   overflow: hidden;
-  background: #000;
 }
 </style>

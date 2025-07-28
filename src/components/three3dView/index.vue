@@ -4,7 +4,7 @@
 
 <script setup name="ThreeView">
 import { ref, watch, onMounted } from 'vue';
-import ThreeCore from './core.js';
+import Three3dView from './core.js';
 
 const props = defineProps({
   // 场景纹理url
@@ -20,33 +20,37 @@ const props = defineProps({
   autoRotate: {
     type: Boolean,
     default: false
+  },
+  // 防抖延迟时间
+  debounceDelay: {
+    type: Boolean,
+    default: false
   }
 });
 
 const threeRef = ref();
-const threeCore = ref();
+const three3dView = ref();
 
-// 初始化ThreeCore
-function initThreeCore() {
-  threeCore.value = new ThreeCore(threeRef.value, {
+// 初始化
+function initThree3dView() {
+  three3dView.value = new Three3dView(threeRef.value, {
     sceneUrl: props.sceneUrl,
     modelUrl: props.modelUrl,
     autoRotate: props.autoRotate,
-    windowSize: props.windowSize
+    debounceDelay: props.debounceDelay
   });
 }
 
 onMounted(() => {
-  // 初始化ThreeCore
-  initThreeCore();
+  initThree3dView();
 });
 
 // 监听属性变化
 watch(
   () => props.sceneUrl,
   val => {
-    if (threeCore.value) {
-      threeCore.value.loadScene(val);
+    if (three3dView.value) {
+      three3dView.value.loadScene(val);
     }
   }
 );
@@ -54,8 +58,8 @@ watch(
 watch(
   () => props.modelUrl,
   val => {
-    if (threeCore.value) {
-      threeCore.value.loadModel(val);
+    if (three3dView.value) {
+      three3dView.value.loadModel(val);
     }
   }
 );
@@ -63,8 +67,8 @@ watch(
 watch(
   () => props.autoRotate,
   val => {
-    if (threeCore.value) {
-      threeCore.value.controlsRotate(val);
+    if (three3dView.value) {
+      three3dView.value.controlsRotate(val);
     }
   }
 );
