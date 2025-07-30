@@ -15,7 +15,6 @@ export default class Three3dView {
       sceneUrl: '', // 场景url
       modelUrl: '', // 模型url
       autoRotate: false, // 是否自动旋转
-      debounceDelay: 100, // 防抖延迟时间
       ...options
     };
     this.scene = null; // 场景
@@ -44,7 +43,7 @@ export default class Three3dView {
     const observer = new ResizeObserver(
       debounce(entries => {
         this.updateRender();
-      }, this.opt.debounceDelay)
+      }, 100)
     );
     observer.observe(this.dom);
   }
@@ -137,7 +136,6 @@ export default class Three3dView {
   loadScene(url) {
     if (/\.hdr$/i.test(url)) {
       new RGBELoader().load(url, texture => {
-        console.log(texture);
         texture.mapping = THREE.EquirectangularReflectionMapping;
         this.scene.background = texture;
         this.scene.environment = texture;

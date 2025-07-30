@@ -14,7 +14,6 @@ pnpm run build
   sceneUrl: '', // 场景url
   modelUrl: '', // 模型url
   autoRotate: false, // 是否自动旋转
-  debounceDelay: 100, // 防抖延迟时间
 ```
 
 ## 方法
