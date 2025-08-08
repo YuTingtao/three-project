@@ -6,9 +6,8 @@
 import { ref } from 'vue';
 import Three3dView from '@/components/three3dView/index.vue';
 
-const sceneUrl = ref('./file/scene/mall.hdr');
-const modelUrl = ref('./file/helmet.glb');
-// const modelUrl = ref('./file/helicopter.gltf');
+const sceneUrl = ref('./file/scene/quarry.hdr');
+const modelUrl = ref('./file/model/helmet.glb');
 </script>
 
 <style lang="scss" scoped>

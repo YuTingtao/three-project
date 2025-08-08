@@ -52,17 +52,22 @@ export default class Three3dView {
   initScene() {
     this.scene = new THREE.Scene();
     // 环境光
-    const ambientLight = new THREE.AmbientLight(0xffffff, 5);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
     this.scene.add(ambientLight);
 
     // 如果没有场景url，则添加默认的光源
     if (!this.opt.sceneUrl) {
-      const directionalLight = new THREE.DirectionalLight(0xffffff, 5);
-      directionalLight.position.set(0, 1, 0).normalize();
-      this.scene.add(directionalLight);
-      const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.5);
-      directionalLight2.position.set(0, -1, 0).normalize();
-      this.scene.add(directionalLight2);
+      // 顶部平行光
+      const topDirLight = new THREE.DirectionalLight(0xffffff, 1);
+      topDirLight.position.set(0, 1, 0).normalize();
+      this.scene.add(topDirLight);
+      // 底部平行光
+      const bottomDirLight = new THREE.DirectionalLight(0xffffff, 0.5);
+      bottomDirLight.position.set(0, -1, 0).normalize();
+      this.scene.add(bottomDirLight);
+      // 半球光
+      const hemLight = new THREE.HemisphereLight(0xffffff, 0x080820, 1);
+      this.scene.add(hemLight);
     }
   }
 
@@ -84,6 +89,7 @@ export default class Three3dView {
       alpha: true, // canvas是否包含alpha
       logarithmicDepthBuffer: true // 对数深度缓冲
     });
+    this.renderer.outputEncoding = THREE.sRGBEncoding; // 输出编码
     this.renderer.setSize(this.dom.offsetWidth, this.dom.offsetHeight);
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.dom.appendChild(this.renderer.domElement);
@@ -137,8 +143,8 @@ export default class Three3dView {
     if (/\.hdr$/i.test(url)) {
       new RGBELoader().load(url, texture => {
         texture.mapping = THREE.EquirectangularReflectionMapping;
-        this.scene.background = texture;
         this.scene.environment = texture;
+        this.scene.background = texture;
       });
     } else if (/\.(jpg|jpeg|png|gif|bmp)$/i.test(url)) {
       new THREE.TextureLoader().load(url, texture => {
