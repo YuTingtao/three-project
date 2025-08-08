@@ -2,9 +2,13 @@
   <div ref="threeRef" class="threejs-container"></div>
 </template>
 
-<script setup name="ThreeView">
+<script setup>
 import { ref, watch, onMounted } from 'vue';
-import Three3dView from './core.js';
+import Three3dView from './three3dView.js';
+
+defineOptions({
+  name: 'Three3dView'
+});
 
 const props = defineProps({
   // 场景纹理url
