@@ -24,11 +24,6 @@ const props = defineProps({
   autoRotate: {
     type: Boolean,
     default: false
-  },
-  // 防抖延迟时间
-  debounceDelay: {
-    type: Boolean,
-    default: false
   }
 });
 
@@ -40,8 +35,7 @@ function initThree3dView() {
   three3dView.value = new Three3dView(threeRef.value, {
     sceneUrl: props.sceneUrl,
     modelUrl: props.modelUrl,
-    autoRotate: props.autoRotate,
-    debounceDelay: props.debounceDelay
+    autoRotate: props.autoRotate
   });
 }
 

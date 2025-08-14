@@ -7,8 +7,7 @@ import { resolve } from 'node:path';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
-
-import VueSetupExtend from 'vite-plugin-vue-setup-extend';
+// gzip压缩
 import { compression } from 'vite-plugin-compression2';
 // 打包分析
 // import { visualizer } from 'rollup-plugin-visualizer';
@@ -19,7 +18,6 @@ export default defineConfig({
     vue(),
     AutoImport({ resolvers: [ElementPlusResolver({ importStyle: 'sass' })] }),
     Components({ resolvers: [ElementPlusResolver({ importStyle: 'sass' })] }),
-    VueSetupExtend(),
     // 大于50K的文件进行gzip压缩
     compression({ threshold: 1024 * 50 })
     // 打包分析
