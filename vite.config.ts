@@ -33,7 +33,7 @@ export default defineConfig({
   base: './',
   // 打包配置
   build: {
-    outDir: 'docs', // 打包输出目录
+    outDir: 'dist', // 打包输出目录
     chunkSizeWarningLimit: 1024 * 500,
     rollupOptions: {
       output: {

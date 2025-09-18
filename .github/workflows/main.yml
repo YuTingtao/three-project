@@ -1,0 +1,32 @@
+name: Github Pages CI # 任务名称
+on:
+  #监听push操作
+  push:
+    branches:
+      - master # 这里只配置了master分支，所以只有推送master分支才会触发以下任务
+jobs:
+  # 任务ID
+  build-and-deploy:
+    # 运行环境
+    runs-on: ubuntu-latest
+    # 步骤
+    steps:
+      # 官方action，将代码拉取到虚拟机
+      - name: Checkout  ️
+        uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: latest # 这里可以指定pnpm版本，latest表示最新版本
+          run_install: false # 是否自动执行安装依赖命令，默认是true，这里设为false，后面自己手动执行
+
+      - name: Install and Build # 安装依赖、打包，如果提前已打包好无需这一步
+        run: |
+          pnpm install
+          pnpm run build
+
+      - name: Deploy # 部署
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages # 部署后提交到那个分支
+          folder: dist # 这里填打包好的目录名称
