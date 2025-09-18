@@ -11,7 +11,7 @@ const allRoutes: Array<RouteRecordRaw> = [
   }
 ];
 const router = createRouter({
-  history: createWebHistory('./'),
+  history: createWebHistory(),
   routes: allRoutes,
   scrollBehavior(to, from) {
     if (to.hash) {
