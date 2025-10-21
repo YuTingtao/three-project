@@ -52,22 +52,13 @@ export default class Three3dView {
   initScene() {
     this.scene = new THREE.Scene();
     // 环境光
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
     this.scene.add(ambientLight);
 
     // 如果没有场景url，则添加默认的光源
     if (!this.opt.sceneUrl) {
-      // 顶部平行光
-      const topDirLight = new THREE.DirectionalLight(0xffffff, 1);
-      topDirLight.position.set(0, 1, 0).normalize();
-      this.scene.add(topDirLight);
-      // 底部平行光
-      const bottomDirLight = new THREE.DirectionalLight(0xffffff, 0.5);
-      bottomDirLight.position.set(0, -1, 0).normalize();
-      this.scene.add(bottomDirLight);
-      // 半球光
-      const hemLight = new THREE.HemisphereLight(0xffffff, 0x080820, 1);
-      this.scene.add(hemLight);
+      const light = new THREE.HemisphereLight(0xffffff, 0xffffff, 4);
+      this.scene.add(light);
     }
   }
 
