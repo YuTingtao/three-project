@@ -34,6 +34,10 @@ export default class Three3dView {
     // 加载场景
     if (this.opt.sceneUrl) {
       this.loadScene(this.opt.sceneUrl);
+    } else {
+      const baseUrl = import.meta.env.BASE_URL === '/' ? './' : import.meta.env.BASE_URL;
+      const sceneUrl = baseUrl + 'file/scene/sky.hdr';
+      this.loadScene(sceneUrl, false);
     }
     // 加载模型
     if (this.opt.modelUrl) {
@@ -130,12 +134,14 @@ export default class Three3dView {
   }
 
   // 加载场景
-  loadScene(url) {
+  loadScene(url, isShowBg = true) {
     if (/\.hdr$/i.test(url)) {
       new RGBELoader().load(url, texture => {
         texture.mapping = THREE.EquirectangularReflectionMapping;
         this.scene.environment = texture;
-        this.scene.background = texture;
+        if (isShowBg) {
+          this.scene.background = texture;
+        }
       });
     } else if (/\.(jpg|jpeg|png|gif|bmp)$/i.test(url)) {
       new THREE.TextureLoader().load(url, texture => {
