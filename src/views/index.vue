@@ -9,7 +9,7 @@ import { ref } from 'vue';
 import Three3dView from '@/components/three3dView/index.vue';
 
 const baseUrl = import.meta.env.BASE_URL === '/' ? '.' : import.meta.env.BASE_URL;
-// const sceneUrl = ref(baseUrl + '/file/scene/mall.hdr');
+const sceneUrl = ref(baseUrl + '/file/scene/mall.hdr');
 const modelUrl = ref(baseUrl + '/file/model/helmet.glb');
 
 // 加载进度
