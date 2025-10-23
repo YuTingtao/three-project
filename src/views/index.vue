@@ -1,5 +1,7 @@
 <template>
-  <Three3dView class="three-box" :sceneUrl="sceneUrl" :modelUrl="modelUrl"></Three3dView>
+  <div class="page-three">
+    <Three3dView :sceneUrl="sceneUrl" :modelUrl="modelUrl"></Three3dView>
+  </div>
 </template>
 
 <script setup>
@@ -12,7 +14,8 @@ const modelUrl = ref(baseUrl + '/file/model/helmet.glb');
 </script>
 
 <style lang="scss" scoped>
-.three-box {
+.page-three {
+  height: 100%;
   overflow: hidden;
 }
 </style>

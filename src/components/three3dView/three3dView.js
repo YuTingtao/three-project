@@ -35,8 +35,9 @@ export default class Three3dView {
     if (this.opt.sceneUrl) {
       this.loadScene(this.opt.sceneUrl);
     } else {
-      const baseUrl = import.meta.env.BASE_URL === '/' ? './' : import.meta.env.BASE_URL;
-      const sceneUrl = baseUrl + 'file/scene/sky.hdr';
+      // 加载默认光源
+      const baseUrl = import.meta.env.BASE_URL === '/' ? '.' : import.meta.env.BASE_URL;
+      const sceneUrl = baseUrl + '/file/scene/sky.hdr';
       this.loadScene(sceneUrl, false);
     }
     // 加载模型
@@ -45,7 +46,7 @@ export default class Three3dView {
     }
     // 监听dom大小变化
     const observer = new ResizeObserver(
-      debounce(entries => {
+      debounce((entries) => {
         this.updateRender();
       }, 100)
     );
@@ -136,7 +137,7 @@ export default class Three3dView {
   // 加载场景
   loadScene(url, isShowBg = true) {
     if (/\.hdr$/i.test(url)) {
-      new RGBELoader().load(url, texture => {
+      new RGBELoader().load(url, (texture) => {
         texture.mapping = THREE.EquirectangularReflectionMapping;
         this.scene.environment = texture;
         if (isShowBg) {
@@ -144,7 +145,7 @@ export default class Three3dView {
         }
       });
     } else if (/\.(jpg|jpeg|png|gif|bmp)$/i.test(url)) {
-      new THREE.TextureLoader().load(url, texture => {
+      new THREE.TextureLoader().load(url, (texture) => {
         texture.mapping = THREE.EquirectangularReflectionMapping;
         texture.wrapS = THREE.RepeatWrapping;
         texture.wrapT = THREE.RepeatWrapping;
@@ -160,7 +161,7 @@ export default class Three3dView {
       // GLTF模型加载
       new GLTFLoader().load(
         url,
-        gltf => {
+        (gltf) => {
           if (this.model) {
             this.scene.remove(this.model);
           }
@@ -169,10 +170,10 @@ export default class Three3dView {
           this.model = model;
           this.scene.add(this.model);
         },
-        xhr => {
+        (xhr) => {
           // console.log((xhr.loaded / xhr.total * 100) + '% loaded');
         },
-        error => {
+        (error) => {
           console.error('模型加载失败:', error);
         }
       );
@@ -180,7 +181,7 @@ export default class Three3dView {
       // FBX模型加载
       new FBXLoader().load(
         url,
-        obj => {
+        (obj) => {
           if (this.model) {
             this.scene.remove(this.model);
           }
@@ -188,10 +189,10 @@ export default class Three3dView {
           this.model = obj;
           this.scene.add(this.model);
         },
-        xhr => {
+        (xhr) => {
           // console.log((xhr.loaded / xhr.total * 100) + '% loaded');
         },
-        error => {
+        (error) => {
           console.error('模型加载失败:', error);
         }
       );
@@ -199,7 +200,7 @@ export default class Three3dView {
       // OBJ模型加载
       new OBJLoader().load(
         url,
-        obj => {
+        (obj) => {
           if (this.model) {
             this.scene.remove(this.model);
           }
@@ -207,10 +208,10 @@ export default class Three3dView {
           this.model = obj;
           this.scene.add(this.model);
         },
-        xhr => {
+        (xhr) => {
           // console.log((xhr.loaded / xhr.total * 100) + '% loaded');
         },
-        error => {
+        (error) => {
           console.error('模型加载失败:', error);
         }
       );
