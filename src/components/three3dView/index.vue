@@ -1,5 +1,10 @@
 <template>
-  <div ref="threeRef" class="threejs-container"></div>
+  <div class="three3d-view">
+    <div ref="threeRef" class="three3d-view-main"></div>
+    <slot name="loading" :percent="loadPercent">
+      <div v-if="loadPercent < 100" class="three3d-view-loading">加载中{{ loadPercent }}%...</div>
+    </slot>
+  </div>
 </template>
 
 <script setup>
@@ -27,15 +32,25 @@ const props = defineProps({
   }
 });
 
+const emit = defineEmits(['onProgress', 'onLoaded']);
+
 const threeRef = ref();
-const three3dView = ref();
+const instance = ref();
+
+const loadPercent = ref(0);
+function onProgress(percent, obj) {
+  loadPercent.value = percent;
+  emit('onProgress', percent, obj);
+}
 
 // 初始化
 function initThree3dView() {
-  three3dView.value = new Three3dView(threeRef.value, {
+  instance.value = new Three3dView(threeRef.value, {
     sceneUrl: props.sceneUrl,
     modelUrl: props.modelUrl,
-    autoRotate: props.autoRotate
+    autoRotate: props.autoRotate,
+    onProgress: onProgress,
+    onLoaded: (model) => emit('onLoaded', model)
   });
 }
 
@@ -46,36 +61,43 @@ onMounted(() => {
 // 监听属性变化
 watch(
   () => props.sceneUrl,
-  val => {
-    if (three3dView.value) {
-      three3dView.value.loadScene(val);
-    }
+  (val) => {
+    instance.value?.loadScene(val);
   }
 );
 
 watch(
   () => props.modelUrl,
-  val => {
-    if (three3dView.value) {
-      three3dView.value.loadModel(val);
-    }
+  (val) => {
+    instance.value?.loadModel(val);
   }
 );
 
 watch(
   () => props.autoRotate,
-  val => {
-    if (three3dView.value) {
-      three3dView.value.controlsRotate(val);
-    }
+  (val) => {
+    instance.value?.controlsRotate(val);
   }
 );
 </script>
 
 <style lang="scss">
-.threejs-container {
+.three3d-view {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.three3d-view-main {
   width: 100%;
   height: 100%;
   cursor: grab;
+}
+.three3d-view-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #409eff;
+  font-size: 14px;
 }
 </style>

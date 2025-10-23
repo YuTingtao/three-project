@@ -23,3 +23,7 @@ pnpm run build
   loadModel(url) // 加载模型
   controlsRotate(boolean) // 是否自动旋转
 ```
+
+## 贴图下载地址
+
+https://hdrihaven.com/hdris/category/?c=all

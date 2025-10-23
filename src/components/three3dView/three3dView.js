@@ -15,6 +15,8 @@ export default class Three3dView {
       sceneUrl: '', // 场景url
       modelUrl: '', // 模型url
       autoRotate: false, // 是否自动旋转
+      onProgress: function () {}, // 加载进度回调
+      onLoaded: function () {}, // 加载完成回调
       ...options
     };
     this.scene = null; // 场景
@@ -59,12 +61,6 @@ export default class Three3dView {
     // 环境光
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
     this.scene.add(ambientLight);
-
-    // 如果没有场景url，则添加默认的光源
-    if (!this.opt.sceneUrl) {
-      const light = new THREE.HemisphereLight(0xffffff, 0xffffff, 4);
-      this.scene.add(light);
-    }
   }
 
   // 相机初始化
@@ -157,65 +153,39 @@ export default class Three3dView {
 
   // 加载模型
   loadModel(url) {
+    let loader;
+    let isGLTF = false;
     if (/\.(gltf|glb)$/i.test(url)) {
       // GLTF模型加载
-      new GLTFLoader().load(
-        url,
-        (gltf) => {
-          if (this.model) {
-            this.scene.remove(this.model);
-          }
-          const model = gltf.scene;
-          this.adjustCamera(model);
-          this.model = model;
-          this.scene.add(this.model);
-        },
-        (xhr) => {
-          // console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-        },
-        (error) => {
-          console.error('模型加载失败:', error);
-        }
-      );
+      loader = new GLTFLoader();
+      isGLTF = true;
     } else if (/\.fbx$/i.test(url)) {
       // FBX模型加载
-      new FBXLoader().load(
-        url,
-        (obj) => {
-          if (this.model) {
-            this.scene.remove(this.model);
-          }
-          this.adjustCamera(obj);
-          this.model = obj;
-          this.scene.add(this.model);
-        },
-        (xhr) => {
-          // console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-        },
-        (error) => {
-          console.error('模型加载失败:', error);
-        }
-      );
+      loader = new FBXLoader();
     } else if (/\.obj$/i.test(url)) {
       // OBJ模型加载
-      new OBJLoader().load(
-        url,
-        (obj) => {
-          if (this.model) {
-            this.scene.remove(this.model);
-          }
-          this.adjustCamera(obj);
-          this.model = obj;
-          this.scene.add(this.model);
-        },
-        (xhr) => {
-          // console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-        },
-        (error) => {
-          console.error('模型加载失败:', error);
-        }
-      );
+      loader = new OBJLoader();
     }
+    loader.load(
+      url,
+      (res) => {
+        if (this.model) {
+          this.scene.remove(this.model);
+        }
+        const model = isGLTF ? res.scene : res;
+        this.adjustCamera(model);
+        this.model = model;
+        this.scene.add(this.model);
+        this.opt.onLoaded(res);
+      },
+      (xhr) => {
+        let percent = parseInt((xhr.loaded / xhr.total) * 100);
+        this.opt.onProgress(percent, { loaded: xhr.loaded, total: xhr.total });
+      },
+      (error) => {
+        console.error('模型加载失败:', error);
+      }
+    );
   }
 
   // 根据模型调整相机
