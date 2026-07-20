@@ -25,7 +25,7 @@ jobs:
       # 使用 pnpm
       - uses: pnpm/action-setup@v4
         with:
-          version: latest
+          version: 10.11
           run_install: false # 不自动执行安装依赖命令
 
       # 安装依赖、打包
