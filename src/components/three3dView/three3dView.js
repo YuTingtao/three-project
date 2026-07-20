@@ -24,6 +24,7 @@ export default class Three3dView {
     this.renderer = null; // 渲染器
     this.controls = null; // 控制器
     this.model = null; // 模型
+    this.loading = false;
     this.init();
   }
   // 初始化
@@ -38,9 +39,7 @@ export default class Three3dView {
       this.loadScene(this.opt.sceneUrl);
     } else {
       // 加载默认光源
-      const baseUrl = import.meta.env.BASE_URL === '/' ? '.' : import.meta.env.BASE_URL;
-      const sceneUrl = baseUrl + '/file/scene/sky.hdr';
-      this.loadScene(sceneUrl, false);
+      this.initLights();
     }
     // 加载模型
     if (this.opt.modelUrl) {
@@ -53,6 +52,27 @@ export default class Three3dView {
       }, 100)
     );
     observer.observe(this.dom);
+  }
+
+  initLights() {
+    // 1. 环境光（提供基础亮度，强度设为 0.8）
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+    this.scene.add(ambientLight);
+
+    // 2. 主光源（模拟太阳光，强度设为 1.5，从侧上方照射）
+    const dirLight = new THREE.DirectionalLight(0xffffff, 1.5);
+    dirLight.position.set(10, 20, 10);
+    this.scene.add(dirLight);
+
+    // 3. 补光（从相对方向照射，降低暗部对比度）
+    const fillLight = new THREE.DirectionalLight(0xffffff, 0.5);
+    fillLight.position.set(-10, 10, -10);
+    this.scene.add(fillLight);
+
+    // 4. 底部反光（模拟地面反射，增加真实感）
+    const bottomLight = new THREE.DirectionalLight(0xffffff, 0.3);
+    bottomLight.position.set(0, -10, 0);
+    this.scene.add(bottomLight);
   }
 
   // 场景初始化
@@ -131,14 +151,12 @@ export default class Three3dView {
   }
 
   // 加载场景
-  loadScene(url, isShowBg = true) {
+  loadScene(url) {
     if (/\.hdr$/i.test(url)) {
       new RGBELoader().load(url, (texture) => {
         texture.mapping = THREE.EquirectangularReflectionMapping;
         this.scene.environment = texture;
-        if (isShowBg) {
-          this.scene.background = texture;
-        }
+        this.scene.background = texture;
       });
     } else if (/\.(jpg|jpeg|png|gif|bmp)$/i.test(url)) {
       new THREE.TextureLoader().load(url, (texture) => {
@@ -166,6 +184,7 @@ export default class Three3dView {
       // OBJ模型加载
       loader = new OBJLoader();
     }
+    this.loading = true;
     loader.load(
       url,
       (res) => {
@@ -181,8 +200,12 @@ export default class Three3dView {
       (xhr) => {
         let percent = parseInt((xhr.loaded / xhr.total) * 100);
         this.opt.onProgress(percent, { loaded: xhr.loaded, total: xhr.total });
+        if (percent === 100) {
+          this.loading = false;
+        }
       },
       (error) => {
+        this.loading = false;
         console.error('模型加载失败:', error);
       }
     );

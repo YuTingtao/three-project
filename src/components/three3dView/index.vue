@@ -1,8 +1,8 @@
 <template>
   <div class="three3d-view">
     <div ref="threeRef" class="three3d-view-main"></div>
-    <slot name="loading" :percent="loadPercent">
-      <div v-if="loadPercent < 100" class="three3d-view-loading">加载中{{ loadPercent }}%...</div>
+    <slot v-if="instance?.loading" name="loading" :percent="loadPercent">
+      <div class="three3d-view-loading">加载中{{ loadPercent }}%...</div>
     </slot>
   </div>
 </template>
